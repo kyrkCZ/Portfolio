@@ -17,19 +17,19 @@ import androidx.compose.ui.unit.sp
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
-import kotlinproject.composeapp.generated.resources.Res
-import kotlinproject.composeapp.generated.resources.compose_multiplatform
 import kotlinx.datetime.Clock
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
+import portfolio.composeapp.generated.resources.Res
+import portfolio.composeapp.generated.resources.compose_multiplatform
 
 @Composable
 @Preview
 fun App() {
     MaterialTheme {
         var showContent by remember { mutableStateOf(false) }
-        val greeting = remember { Greeting().greet() }
+        //val greeting = remember { Greeting().greet() }
         Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
             Text(
                 text = "Today's date is ${todaysDate()}",
@@ -43,7 +43,7 @@ fun App() {
             AnimatedVisibility(showContent) {
                 Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
                     Image(painterResource(Res.drawable.compose_multiplatform), null)
-                    Text("Compose: $greeting")
+                    //Text("Compose: $greeting")
                 }
             }
         }
@@ -57,3 +57,12 @@ fun todaysDate(): String {
     val zone = TimeZone.currentSystemDefault()
     return now.toLocalDateTime(zone).format()
 }
+
+fun affineCipherDemo() {
+    val cipher = AffineCipher()
+    val encoded = cipher.encode("Hello, World!", 5, 8)
+    println("Encoded: $encoded")
+    val decoded = cipher.decode(encoded, 5, 8)
+    println("Decoded: $decoded")
+}
+
