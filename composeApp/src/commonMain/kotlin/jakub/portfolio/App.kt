@@ -1,52 +1,22 @@
 package jakub.portfolio
 
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material.Button
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
-import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-import org.jetbrains.compose.resources.painterResource
-import org.jetbrains.compose.ui.tooling.preview.Preview
-
+import androidx.compose.runtime.Composable
 import kotlinx.datetime.Clock
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
-import portfolio.composeapp.generated.resources.Res
-import portfolio.composeapp.generated.resources.compose_multiplatform
+import org.jetbrains.compose.ui.tooling.preview.Preview
 
-@Composable
+
 @Preview
-fun App() {
-    MaterialTheme {
-        var showContent by remember { mutableStateOf(false) }
-        //val greeting = remember { Greeting().greet() }
-        Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
-            Text(
-                text = "Today's date is ${todaysDate()}",
-                modifier = Modifier.padding(20.dp),
-                fontSize = 24.sp,
-                textAlign = TextAlign.Center
-            )
-            Button(onClick = { showContent = !showContent }) {
-                Text("Click me!")
-            }
-            AnimatedVisibility(showContent) {
-                Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
-                    Image(painterResource(Res.drawable.compose_multiplatform), null)
-                    //Text("Compose: $greeting")
-                }
-            }
-        }
+@Composable
+fun MainPage() {
+    // Your UI elements here
+    Column {
+        Text("Welcome to my Portfolio!")
+        // Add more content: profile picture, about me, skills, projects, etc.
     }
 }
 
@@ -59,10 +29,13 @@ fun todaysDate(): String {
 }
 
 fun affineCipherDemo() {
-    val cipher = AffineCipher()
-    val encoded = cipher.encode("Hello, World!", 5, 8)
-    println("Encoded: $encoded")
-    val decoded = cipher.decode(encoded, 5, 8)
-    println("Decoded: $decoded")
+    val cipher = AffineCipher(alphabet = ('a'..'z').joinToString("") + ('0'..'9').joinToString(""))
+    val ciphertext = cipher.encode("Hello", 5, 8)
+    val plaintext = cipher.decode(ciphertext, 5, 8)
 }
 
+fun adfgvxCipherDemo() {
+    val cipher = ADFGVXCipher("HELLO", useExtendedAlphabet = true)
+    val ciphertext = cipher.encode("Hello")
+    val plaintext = cipher.decode(ciphertext)
+}

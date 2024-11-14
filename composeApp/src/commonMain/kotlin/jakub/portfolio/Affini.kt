@@ -4,22 +4,6 @@ class AffineCipher(val alphabet: String = ('a'..'z').joinToString("") + ('0'..'9
     val m = alphabet.length
     val alphabetArray = alphabet.toCharArray()
 
-    fun CharSequence.removeDiacritics(): String {
-        val diacriticsMap = mapOf(
-            'á' to 'a', 'é' to 'e', 'í' to 'i', 'ó' to 'o', 'ú' to 'u',
-            'Á' to 'A', 'É' to 'E', 'Í' to 'I', 'Ó' to 'O', 'Ú' to 'U',
-            'ä' to 'a', 'ë' to 'e', 'ï' to 'i', 'ö' to 'o', 'ü' to 'u',
-            'Ä' to 'A', 'Ë' to 'E', 'Ï' to 'I', 'Ö' to 'O', 'Ü' to 'U',
-            'à' to 'a', 'è' to 'e', 'ì' to 'i', 'ò' to 'o', 'ù' to 'u',
-            'À' to 'A', 'È' to 'E', 'Ì' to 'I', 'Ò' to 'O', 'Ù' to 'U',
-            'â' to 'a', 'ê' to 'e', 'î' to 'i', 'ô' to 'o', 'û' to 'u',
-            'Â' to 'A', 'Ê' to 'E', 'Î' to 'I', 'Ô' to 'O', 'Û' to 'U',
-            'ã' to 'a', 'ñ' to 'n', 'õ' to 'o',
-            'Ã' to 'A', 'Ñ' to 'N', 'Õ' to 'O',
-            'å' to 'a', 'Å' to 'A', 'ç' to 'c', 'Ç' to 'C'
-        )
-        return this.map { diacriticsMap[it] ?: it }.joinToString("")
-    }
 
     fun mod(int: Int, mod: Int): Int {
         var result = int % mod
@@ -60,7 +44,7 @@ class AffineCipher(val alphabet: String = ('a'..'z').joinToString("") + ('0'..'9
                 val index = alphabet.indexOf(char.lowercaseChar())
                 // Decoding using the formula: y = a^(-1) * (x - b) mod m
                 val decodedIndex = (mmiA * (index - b + m)) % m
-                decoded.append(if (decodedIndex < alphabet.length) alphabetArray[decodedIndex] else (decodedIndex - alphabet.length + '0'.toInt()).toChar())
+                decoded.append(if (decodedIndex < alphabet.length) alphabetArray[decodedIndex] else (decodedIndex - alphabet.length + '0'.code).toChar())
             }
         }
 

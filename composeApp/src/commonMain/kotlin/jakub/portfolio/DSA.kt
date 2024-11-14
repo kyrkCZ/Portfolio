@@ -1,4 +1,3 @@
 package jakub.portfolio
 
-class DSA {
-}
+class DSA
