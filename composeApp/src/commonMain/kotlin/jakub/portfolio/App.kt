@@ -13,10 +13,20 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 @Preview
 @Composable
 fun MainPage() {
-    // Your UI elements here
     Column {
         Text("Welcome to my Portfolio!")
-        // Add more content: profile picture, about me, skills, projects, etc.
+        Text("Today's date is: ${todaysDate()}")
+        Text("Here you can find information about me, my skills, and projects.")
+        // About Me
+        Text("About Me")
+        Text("I am a software developer with a passion for creating innovative solutions...")
+        // Skills
+        Text("Skills")
+        Text("Kotlin, Java, Android Development, Compose, etc.")
+        // Projects
+        Text("Projects")
+        Text("1. CryptoCoin - Simple cryptocurrency tracker")
+        Text("2. Cryptátor - Cryptography app")
     }
 }
 
