@@ -6,7 +6,7 @@ import androidx.activity.compose.setContent
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import jakub.portfolio.MainPage
+import jakub.portfolio.PortfolioApp
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
 
@@ -26,5 +26,5 @@ class MainActivity : ComponentActivity() {
 @Preview
 @Composable
 fun AppAndroidPreview() {
-    MainPage()
+    PortfolioApp()
 }
