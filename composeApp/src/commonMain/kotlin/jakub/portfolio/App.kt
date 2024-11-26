@@ -9,9 +9,17 @@ import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.ClickableText
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.MoreVert
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -37,6 +45,7 @@ fun PortfolioApp() {
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(paddingValues)
+                    .verticalScroll(rememberScrollState())
             ) {
                 ProfileSection()
                 SkillsSection()
@@ -49,11 +58,34 @@ fun PortfolioApp() {
 
 @Composable
 fun TopBar() {
+
+    var mDisplayMenu by remember { mutableStateOf(false) }
+
     TopAppBar(
         title = { Text("My Portfolio", style = TextStyle(color = Color.White)) },
-        backgroundColor = MaterialTheme.colors.primary
+        backgroundColor = MaterialTheme.colors.primary,
+        actions = {
+            IconButton(onClick = { mDisplayMenu = !mDisplayMenu }) {
+                Icon(Icons.Default.MoreVert, contentDescription = "More")
+            }
+            DropdownMenu(
+                expanded = mDisplayMenu,
+                onDismissRequest = { mDisplayMenu = false },
+                content = {
+                    DropdownMenuItem(onClick = { /* handle item click */ }) {
+                        Text("Settings")
+                    }
+                    DropdownMenuItem(onClick = { /* handle item click */ }) {
+                        Text("About")
+                    }
+                    // Add more menu items as needed
+                }
+            )
+        }
     )
 }
+
+
 
 @Composable
 fun ProfileSection() {
