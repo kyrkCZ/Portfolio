@@ -1,21 +1,29 @@
 package jakub.portfolio
 
-import androidx.compose.foundation.layout.Column
-import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
-import kotlinx.datetime.Clock
-import kotlinx.datetime.LocalDateTime
-import kotlinx.datetime.TimeZone
-import kotlinx.datetime.toLocalDateTime
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.ClickableText
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.*
+import androidx.compose.material.Card
+import androidx.compose.material.DropdownMenu
+import androidx.compose.material.DropdownMenuItem
+import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Scaffold
+import androidx.compose.material.Text
+import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.MoreVert
+import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -25,12 +33,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.ColorPainter
-import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import kotlinx.datetime.Clock
+import kotlinx.datetime.LocalDateTime
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.toLocalDateTime
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Preview
@@ -134,9 +145,12 @@ fun ProjectsSection() {
     ) {
         Text("Projects", style = MaterialTheme.typography.h6)
         Spacer(modifier = Modifier.height(8.dp))
-        ProjectCard("Project 1", "A cool project that does X, Y, Z")
+        ProjectCard("Crypto-Coin", "A cryptocurrency tracker app that shows the latest prices")
         Spacer(modifier = Modifier.height(8.dp))
-        ProjectCard("Project 2", "Another cool project that solves A, B, C")
+        ProjectCard(
+            "Kryptography",
+            "A collection of cryptographic algorithms implemented in Kotlin"
+        )
     }
 }
 
@@ -167,13 +181,13 @@ fun ContactSection() {
         Text("Contact", style = MaterialTheme.typography.h6)
         Spacer(modifier = Modifier.height(8.dp))
         ClickableText(
-            text = AnnotatedString("Email: johndoe@example.com"),
+            text = AnnotatedString("Email: jakubkramny93@gmail.com"),
             style = TextStyle(color = MaterialTheme.colors.primary, fontSize = 14.sp),
             onClick = { /* Handle email click */ }
         )
         Spacer(modifier = Modifier.height(4.dp))
         ClickableText(
-            text = AnnotatedString("LinkedIn: linkedin.com/in/johndoe"),
+            text = AnnotatedString("LinkedIn"),
             style = TextStyle(color = MaterialTheme.colors.primary, fontSize = 14.sp),
             onClick = { /* Handle LinkedIn click */ }
         )
