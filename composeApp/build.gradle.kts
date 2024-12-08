@@ -61,6 +61,12 @@ kotlin {
             implementation(libs.androidx.activity.compose)
         }
         commonMain.dependencies {
+            implementation("io.ktor:ktor-client-core:2.3.0") // Core Ktor library
+            implementation("io.ktor:ktor-client-cio:2.3.0") // HTTP client engine
+            implementation("io.ktor:ktor-client-content-negotiation:2.3.0") // ContentNegotiation plugin
+            implementation("io.ktor:ktor-serialization-kotlinx-json:2.3.0") // JSON serialization
+            implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.0") // Kotlinx Serialization
+            implementation(libs.ktor.client.serialization)
             implementation(compose.runtime)
             implementation(compose.foundation)
             implementation(compose.material)
@@ -69,7 +75,7 @@ kotlin {
             implementation(compose.components.uiToolingPreview)
             implementation(libs.androidx.lifecycle.viewmodel)
             implementation(libs.androidx.lifecycle.runtime.compose)
-            implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.6.0")
+            implementation(libs.kotlinx.datetime)
         }
         wasmJsMain.dependencies {
             implementation(npm("@js-joda/timezone", "2.3.0"))
