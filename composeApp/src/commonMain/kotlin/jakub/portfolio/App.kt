@@ -1,6 +1,7 @@
 package jakub.portfolio
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -8,11 +9,10 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.ClickableText
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Card
+import androidx.compose.material.Divider
 import androidx.compose.material.DropdownMenu
 import androidx.compose.material.DropdownMenuItem
 import androidx.compose.material.Icon
@@ -20,13 +20,17 @@ import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
+import androidx.compose.material.TextButton
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.MoreVert
+import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -38,33 +42,77 @@ import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import kotlinx.coroutines.launch
 import kotlinx.datetime.Clock
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
-import org.jetbrains.compose.ui.tooling.preview.Preview
 
-@Preview
 @Composable
 fun PortfolioApp() {
-    MaterialTheme {
-        Scaffold(
-            modifier = Modifier.fillMaxWidth(),
-            topBar = { TopBar() }
-        ) { paddingValues ->
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(paddingValues)
-                    .verticalScroll(rememberScrollState())
-            ) {
-                ProfileSection()
-                SkillsSection()
-                ProjectsSection()
-                ContactSection()
+    val scaffoldState = rememberScaffoldState()
+    val coroutineScope = rememberCoroutineScope()
+    var mDisplayMenu by remember { mutableStateOf(false) }
+    val drawerItems = listOf("Home", "Profile", "Settings", "Help")
+    var selectedItem by remember { mutableStateOf("Home") }
+
+    Scaffold(
+        scaffoldState = scaffoldState,
+        drawerContent = {
+            Column(modifier = Modifier.fillMaxSize().padding(16.dp)) {
+                Text("Menu", style = MaterialTheme.typography.h6)
+                Divider(modifier = Modifier.padding(vertical = 8.dp))
+                drawerItems.forEach { item ->
+                    TextButton(
+                        onClick = {
+                            selectedItem = item
+                            coroutineScope.launch { scaffoldState.drawerState.close() }
+                        },
+                        modifier = Modifier.fillMaxWidth().padding(4.dp)
+                    ) {
+                        Text(text = item)
+                    }
+                }
+            }
+        },
+        topBar = {
+            TopAppBar(
+                title = { Text("My Portfolio", style = TextStyle(color = Color.White)) },
+                backgroundColor = MaterialTheme.colors.primary,
+                navigationIcon = {
+                    IconButton(onClick = { coroutineScope.launch { scaffoldState.drawerState.open() } }) {
+                        Icon(
+                            Icons.Default.Menu,
+                            contentDescription = "Menu Icon",
+                            tint = Color.White
+                        )
+                    }
+                },
+                actions = {
+                    IconButton(onClick = { mDisplayMenu = !mDisplayMenu }) {
+                        Icon(Icons.Default.MoreVert, contentDescription = "More")
+                    }
+                    DropdownMenu(
+                        expanded = mDisplayMenu,
+                        onDismissRequest = { mDisplayMenu = false },
+                        content = {
+                            DropdownMenuItem(onClick = { /* handle item click */ }) {
+                                Text("Settings")
+                            }
+                            DropdownMenuItem(onClick = { /* handle item click */ }) {
+                                Text("About")
+                            }
+                        }
+                    )
+                }
+            )
+        },
+        content = { paddingValues ->
+            Box(modifier = Modifier.padding(paddingValues)) {
+                Text("Selected Screen: $selectedItem", modifier = Modifier.padding(16.dp))
             }
         }
-    }
+    )
 }
 
 @Composable
@@ -76,7 +124,8 @@ fun TopBar() {
         title = { Text("My Portfolio", style = TextStyle(color = Color.White)) },
         backgroundColor = MaterialTheme.colors.primary,
         actions = {
-            IconButton(onClick = { mDisplayMenu = !mDisplayMenu }) {
+
+        IconButton(onClick = { mDisplayMenu = !mDisplayMenu }) {
                 Icon(Icons.Default.MoreVert, contentDescription = "More")
             }
             DropdownMenu(

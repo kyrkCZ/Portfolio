@@ -112,8 +112,15 @@ android {
 }
 
 dependencies {
-    implementation("androidx.core:core-splashscreen:1.0.1")
-    implementation("androidx.appcompat:appcompat:1.7.0")
+    implementation(libs.material)
+    implementation(libs.ui)
+    implementation(libs.foundation)
+    implementation(libs.ktor.client.core)
+    implementation(libs.ktor.client.cio) // or another engine like `ktor-client-okhttp`
+    implementation(libs.ktor.client.serialization)
+    implementation(libs.ktor.ktor.serialization.kotlinx.json)
+    implementation(libs.androidx.core.splashscreen)
+    implementation(libs.androidx.appcompat)
     implementation(compose.uiTooling)
 }
 
