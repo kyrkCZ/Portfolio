@@ -20,8 +20,11 @@ kotlin = "2.0.20"
 kotlinx-coroutines = "1.9.0"
 kotlinxDatetime = "0.6.0"
 kotlinxSerializationJson = "1.6.3"
+kotlinxSerializationJsonVersion = "1.6.0"
 ktorClientCore = "2.0.0"
+ktorClientCoreVersion = "2.3.0"
 ktorSerializationKotlinxJson = "2.0.0"
+ktorSerializationKotlinxJsonVersion = "2.3.0"
 lifecycleViewmodelCompose = "2.8.7"
 material = "1.7.0"
 ui = "1.7.0"
@@ -50,10 +53,14 @@ androidx-ui-android = { group = "androidx.compose.ui", name = "ui-android", vers
 androidx-ui-desktop = { group = "androidx.compose.ui", name = "ui-desktop", version.ref = "uiDesktop" }
 kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinxDatetime" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerializationJson" }
+kotlinx-serialization-json-v160 = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerializationJsonVersion" }
 ktor-client-cio = { module = "io.ktor:ktor-client-cio", version.ref = "ktorClientCore" }
+ktor-client-content-negotiation = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktorClientCoreVersion" }
 ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktorClientCore" }
+ktor-client-core-v230 = { module = "io.ktor:ktor-client-core", version.ref = "ktorClientCoreVersion" }
 ktor-ktor-serialization-kotlinx-json = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktorSerializationKotlinxJson" }
 ktor-client-serialization = { module = "io.ktor:ktor-client-serialization", version.ref = "ktorClientCore" }
+ktor-serialization-kotlinx-json-v230 = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktorSerializationKotlinxJsonVersion" }
 material = { module = "org.jetbrains.compose.material:material", version.ref = "material" }
 ui = { module = "org.jetbrains.compose.ui:ui", version.ref = "ui" }
 

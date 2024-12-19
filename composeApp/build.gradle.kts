@@ -61,11 +61,11 @@ kotlin {
             implementation(libs.androidx.activity.compose)
         }
         commonMain.dependencies {
-            implementation("io.ktor:ktor-client-core:2.3.0") // Core Ktor library
-            implementation("io.ktor:ktor-client-cio:2.3.0") // HTTP client engine
-            implementation("io.ktor:ktor-client-content-negotiation:2.3.0") // ContentNegotiation plugin
-            implementation("io.ktor:ktor-serialization-kotlinx-json:2.3.0") // JSON serialization
-            implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.0") // Kotlinx Serialization
+            implementation(libs.ktor.client.core.v230) // Core Ktor library
+            implementation(libs.ktor.client.cio) // HTTP client engine
+            implementation(libs.ktor.client.content.negotiation) // ContentNegotiation plugin
+            implementation(libs.ktor.serialization.kotlinx.json.v230) // JSON serialization
+            implementation(libs.kotlinx.serialization.json.v160) // Kotlinx Serialization
             implementation(libs.ktor.client.serialization)
             implementation(compose.runtime)
             implementation(compose.foundation)
