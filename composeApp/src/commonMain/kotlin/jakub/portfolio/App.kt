@@ -67,6 +67,8 @@ fun PortfolioApp() {
     var mDisplayMenu by remember { mutableStateOf(false) }
     val drawerItems = listOf("Home", "NASA", "Crypto-Coin", "Kryptography")
     var selectedItem by remember { mutableStateOf("Home") }
+    var showSettings by remember { mutableStateOf(false) }
+    var showAbout by remember { mutableStateOf(false) }
 
     Scaffold(
         scaffoldState = scaffoldState,
@@ -92,7 +94,11 @@ fun PortfolioApp() {
                 title = { Text("My Portfolio", style = TextStyle(color = Color.White)) },
                 backgroundColor = MaterialTheme.colors.primary,
                 navigationIcon = {
-                    IconButton(onClick = { coroutineScope.launch { scaffoldState.drawerState.open() } }) {
+                    IconButton(onClick = {
+                        showAbout = false
+                        showSettings = false
+                        coroutineScope.launch { scaffoldState.drawerState.open() }
+                    }) {
                         Icon(
                             Icons.Default.Menu,
                             contentDescription = "Menu Icon",
@@ -108,10 +114,18 @@ fun PortfolioApp() {
                         expanded = mDisplayMenu,
                         onDismissRequest = { mDisplayMenu = false },
                         content = {
-                            DropdownMenuItem(onClick = { /* handle item click */ }) {
+                            DropdownMenuItem(onClick = {
+                                showAbout = false
+                                showSettings = true
+                                mDisplayMenu = false
+                            }) {
                                 Text("Settings")
                             }
-                            DropdownMenuItem(onClick = { /* handle item click */ }) {
+                            DropdownMenuItem(onClick = {
+                                showAbout = true
+                                showSettings = false
+                                mDisplayMenu = false
+                            }) {
                                 Text("About")
                             }
                         }
@@ -121,11 +135,15 @@ fun PortfolioApp() {
         },
         content = { paddingValues ->
             Box(modifier = Modifier.padding(paddingValues)) {
-                when (selectedItem) {
-                    "Home" -> HomeScreen()
-                    "NASA" -> NasaScreen("yEDjQUgqIe4ZTbEkVwHU1ZkdfeK4pj5DfBfMTK22")
-                    "Crypto-Coin" -> CryptoCoinScreen()
-                    "Kryptography" -> KryptographyScreen()
+                when {
+                    showSettings -> SettingsView()
+                    showAbout -> AboutView()
+                    else -> when (selectedItem) {
+                        "Home" -> HomeScreen()
+                        "NASA" -> NasaScreen("yEDjQUgqIe4ZTbEkVwHU1ZkdfeK4pj5DfBfMTK22")
+                        "Crypto-Coin" -> CryptoCoinScreen()
+                        "Kryptography" -> KryptographyScreen()
+                    }
                 }
             }
         }
@@ -417,4 +435,31 @@ fun adfgvxCipherDemo() {
     val cipher = ADFGVXCipher("HELLO", useExtendedAlphabet = true)
     val ciphertext = cipher.encode("Hello")
     val plaintext = cipher.decode(ciphertext)
+}
+
+@Composable
+fun SettingsView() {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Text("Settings", style = MaterialTheme.typography.h6)
+        // Add more settings content here
+    }
+}
+
+@Composable
+fun AboutView() {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Text("About", style = MaterialTheme.typography.h6)
+        Text("This is a portfolio app created by Jakub Kramný.")
+        // Add more about content here
+    }
 }
