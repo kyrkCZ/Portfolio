@@ -61,10 +61,6 @@ import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
 import kotlinx.serialization.json.Json
 import jakub.portfolio.activity.CryptoCoinScreen
-import org.jetbrains.compose.resources.Resource
-import org.jetbrains.compose.resources.painterResource
-import portfolio.composeapp.generated.resources.Res
-import portfolio.composeapp.generated.resources.compose_multiplatform
 
 @Composable
 fun PortfolioApp() {
