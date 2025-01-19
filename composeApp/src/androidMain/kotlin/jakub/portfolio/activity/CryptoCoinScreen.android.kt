@@ -20,7 +20,7 @@ actual fun CryptoCoinScreen() {
         Button(
             onClick = {
                 val intent = Intent(Intent.ACTION_VIEW).apply {
-                    data = Uri.parse("https://play.google.com/store/apps/details?id=com.yourapp.package")
+                    data = Uri.parse("https://play.google.com/store/apps/details?id=com.jakub.coin.CryptoCoin")
                 }
                 context.startActivity(intent)
             },
