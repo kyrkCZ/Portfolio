@@ -59,6 +59,7 @@ import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
 import kotlinx.serialization.json.Json
+import jakub.portfolio.activity.CryptoCoinScreen
 
 @Composable
 fun PortfolioApp() {
@@ -272,13 +273,7 @@ fun AsyncImage(imageUrl: String, contentDescription: String, modifier: Modifier 
     }
 }
 
-@Composable
-fun CryptoCoinScreen() {
-    Column(modifier = Modifier.padding(16.dp)) {
-        Text("Welcome to the Crypto-Coin Screen")
-        // Add more content for the Crypto-Coin screen
-    }
-}
+
 
 @Composable
 fun KryptographyScreen() {
@@ -317,8 +312,6 @@ fun TopBar() {
         }
     )
 }
-
-
 
 @Composable
 fun ProfileSection() {

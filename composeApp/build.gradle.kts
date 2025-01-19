@@ -128,6 +128,8 @@ dependencies {
     implementation(libs.androidx.core.splashscreen)
     implementation(libs.androidx.appcompat)
     implementation(compose.uiTooling)
+    implementation(libs.androidx.material3.android)
+    implementation(libs.androidx.documentfile)
 }
 
 compose.desktop {
