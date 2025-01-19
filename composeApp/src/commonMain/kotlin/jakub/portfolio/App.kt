@@ -4,6 +4,7 @@ import NasaApiService
 import NasaPictureOfTheDay
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.ScrollState
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -60,6 +61,10 @@ import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
 import kotlinx.serialization.json.Json
 import jakub.portfolio.activity.CryptoCoinScreen
+import org.jetbrains.compose.resources.Resource
+import org.jetbrains.compose.resources.painterResource
+import portfolio.composeapp.generated.resources.Res
+import portfolio.composeapp.generated.resources.compose_multiplatform
 
 @Composable
 fun PortfolioApp() {
@@ -144,6 +149,7 @@ fun PortfolioApp() {
                         "NASA" -> NasaScreen("yEDjQUgqIe4ZTbEkVwHU1ZkdfeK4pj5DfBfMTK22")
                         "Crypto-Coin" -> CryptoCoinScreen()
                         "Kryptography" -> KryptographyScreen()
+                        else -> HomeScreen()
                     }
                 }
             }
@@ -176,7 +182,6 @@ fun HomeScreen() {
 
 @Composable
 fun NasaScreen(apiKey: String) {
-    // Create an HttpClient instance
     val httpClient = remember {
         HttpClient {
             install(ContentNegotiation) {
@@ -189,7 +194,6 @@ fun NasaScreen(apiKey: String) {
     }
 
     val nasaApiService = remember { NasaApiService(httpClient, apiKey) }
-    val coroutineScope = rememberCoroutineScope()
 
     var pictureOfTheDay by remember { mutableStateOf<NasaPictureOfTheDay?>(null) }
     var errorMessage by remember { mutableStateOf<String?>(null) }
@@ -200,7 +204,7 @@ fun NasaScreen(apiKey: String) {
         try {
             pictureOfTheDay = nasaApiService.getPictureOfTheDay()
         } catch (e: Exception) {
-            errorMessage = e.message ?: "Unknown error"
+            errorMessage = "Error: ${e.message ?: "Unknown error"}"
         } finally {
             isLoading = false
         }
@@ -214,7 +218,7 @@ fun NasaScreen(apiKey: String) {
 
             errorMessage != null -> {
                 Text(
-                    text = "Error: $errorMessage",
+                    text = errorMessage ?: "Unknown error",
                     color = MaterialTheme.colors.error,
                     modifier = Modifier.padding(16.dp),
                     textAlign = TextAlign.Center
@@ -246,13 +250,6 @@ fun PictureOfTheDayContent(picture: NasaPictureOfTheDay) {
             style = MaterialTheme.typography.caption,
             modifier = Modifier.padding(bottom = 16.dp)
         )
-        picture.hdurl?.let {
-            AsyncImage(
-                imageUrl = it,
-                contentDescription = picture.title,
-                modifier = Modifier.fillMaxWidth().aspectRatio(1.5f)
-            )
-        }
         Text(
             text = picture.explanation,
             style = MaterialTheme.typography.body1,
@@ -262,30 +259,10 @@ fun PictureOfTheDayContent(picture: NasaPictureOfTheDay) {
 }
 
 @Composable
-fun AsyncImage(imageUrl: String, contentDescription: String, modifier: Modifier = Modifier) {
-    // Placeholder for your image loading solution
-    // Replace this with Coil or other libraries for image loading in Compose Multiplatform
-    Box(
-        modifier = modifier,
-        contentAlignment = Alignment.Center
-    ) {
-        Text("Image loading placeholder")
-    }
-}
-
-
-
-@Composable
-fun KryptographyScreen() {
-    Column(modifier = Modifier.padding(16.dp)) {
-        Text("Welcome to the Kryptography Screen")
-        // Add more content for the Kryptography screen
-    }
-}
+expect fun KryptographyScreen()
 
 @Composable
 fun TopBar() {
-
     var mDisplayMenu by remember { mutableStateOf(false) }
 
     TopAppBar(
@@ -306,11 +283,28 @@ fun TopBar() {
                     DropdownMenuItem(onClick = { /* handle item click */ }) {
                         Text("About")
                     }
-                    // Add more menu items as needed
                 }
             )
         }
     )
+}
+
+@Composable
+fun AboutScreen() {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Text(
+            text = "About",
+            style = MaterialTheme.typography.h4,
+            modifier = Modifier.padding(bottom = 16.dp)
+        )
+        Text("This is a portfolio app showcasing Kotlin Multiplatform.")
+    }
 }
 
 @Composable
@@ -321,17 +315,6 @@ fun ProfileSection() {
             .padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-
-        val profileImage = ColorPainter(Color.Gray) // Placeholder painter for testing
-        Image(
-            painter = profileImage,
-            contentDescription = "Profile Picture",
-            modifier = Modifier
-                .size(120.dp)
-                .clip(CircleShape),
-            contentScale = ContentScale.Crop
-        )
-        Spacer(modifier = Modifier.height(8.dp))
         Text("Jakub Kramný", style = MaterialTheme.typography.h5)
         Text("Software Engineer", style = MaterialTheme.typography.body1, color = Color.Gray)
     }
@@ -346,8 +329,8 @@ fun SkillsSection() {
     ) {
         Text("Skills", style = MaterialTheme.typography.h6)
         Spacer(modifier = Modifier.height(8.dp))
-        Text("• Kotlin • Java • Compose UI • Android Development", style = MaterialTheme.typography.body1)
-        Text("• Multiplatform • REST APIs • Clean Architecture", style = MaterialTheme.typography.body1)
+        Text("• Kotlin • C# • ", style = MaterialTheme.typography.body1)
+        Text("• Git • REST APIs • Linux • Windows", style = MaterialTheme.typography.body1)
     }
 }
 
@@ -409,38 +392,12 @@ fun ContactSection() {
     }
 }
 
-
 fun todaysDate(): String {
     fun LocalDateTime.format() = toString().substringBefore('T')
 
     val now = Clock.System.now()
     val zone = TimeZone.currentSystemDefault()
     return now.toLocalDateTime(zone).format()
-}
-
-fun affineCipherDemo() {
-    val cipher = AffineCipher(alphabet = ('a'..'z').joinToString("") + ('0'..'9').joinToString(""))
-    val ciphertext = cipher.encode("Hello", 5, 8)
-    val plaintext = cipher.decode(ciphertext, 5, 8)
-}
-
-fun adfgvxCipherDemo() {
-    val cipher = ADFGVXCipher("HELLO", useExtendedAlphabet = true)
-    val ciphertext = cipher.encode("Hello")
-    val plaintext = cipher.decode(ciphertext)
-}
-
-@Composable
-fun SettingsView() {
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Text("Settings", style = MaterialTheme.typography.h6)
-        // Add more settings content here
-    }
 }
 
 @Composable
@@ -453,6 +410,8 @@ fun AboutView() {
     ) {
         Text("About", style = MaterialTheme.typography.h6)
         Text("This is a portfolio app created by Jakub Kramný.")
-        // Add more about content here
     }
 }
+
+@Composable
+expect fun SettingsView()
