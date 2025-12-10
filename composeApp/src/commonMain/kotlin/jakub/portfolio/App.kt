@@ -258,52 +258,6 @@ fun PictureOfTheDayContent(picture: NasaPictureOfTheDay) {
 expect fun KryptographyScreen()
 
 @Composable
-fun TopBar() {
-    var mDisplayMenu by remember { mutableStateOf(false) }
-
-    TopAppBar(
-        title = { Text("My Portfolio", style = TextStyle(color = Color.White)) },
-        backgroundColor = MaterialTheme.colors.primary,
-        actions = {
-
-        IconButton(onClick = { mDisplayMenu = !mDisplayMenu }) {
-                Icon(Icons.Default.MoreVert, contentDescription = "More")
-            }
-            DropdownMenu(
-                expanded = mDisplayMenu,
-                onDismissRequest = { mDisplayMenu = false },
-                content = {
-                    DropdownMenuItem(onClick = { /* handle item click */ }) {
-                        Text("Settings")
-                    }
-                    DropdownMenuItem(onClick = { /* handle item click */ }) {
-                        Text("About")
-                    }
-                }
-            )
-        }
-    )
-}
-
-@Composable
-fun AboutScreen() {
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Text(
-            text = "About",
-            style = MaterialTheme.typography.h4,
-            modifier = Modifier.padding(bottom = 16.dp)
-        )
-        Text("This is a portfolio app showcasing Kotlin Multiplatform.")
-    }
-}
-
-@Composable
 fun ProfileSection() {
     Column(
         modifier = Modifier
