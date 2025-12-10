@@ -27,8 +27,8 @@ class AffineCipher(val alphabet: String = ('a'..'z').joinToString("") + ('0'..'9
 
     fun encode(input: String, a: Int, b: Int): String {
         return input.mapIndexed { index, char ->
-            val ciphered = cipherChar(char, a, b)
-            if ((index + 1) % 5 == 0 && index < input.length - 1) "$ciphered " else ciphered.toString()
+            val ciphered = cipherChar(char, a, b).toString()
+            if ((index + 1) % 5 == 0 && index < input.length - 1) "$ciphered " else ciphered
         }.joinToString("").uppercase()
     }
 

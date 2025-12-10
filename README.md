@@ -235,7 +235,6 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 **Jakub Kramný**
 - Email: jakubkramny93@gmail.com
 - GitHub: [@kyrkCZ](https://github.com/kyrkCZ)
-- LinkedIn: [Connect with me](https://linkedin.com)
 
 ---
 

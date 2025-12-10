@@ -11,8 +11,8 @@ import kotlinx.serialization.Serializable
  * @property date The date of the APOD image (format: YYYY-MM-DD)
  * @property explanation A detailed explanation about the image
  * @property hdurl High-definition URL of the image (optional)
- * @property media_type Type of media (image or video)
- * @property service_version API service version
+ * @property media_type Type of media (image or video) - Note: Uses snake_case as per API response
+ * @property service_version API service version - Note: Uses snake_case as per API response
  * @property title Title of the image
  * @property url Standard resolution URL of the image
  */
