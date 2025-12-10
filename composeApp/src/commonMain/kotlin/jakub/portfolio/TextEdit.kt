@@ -1,5 +1,25 @@
 package jakub.portfolio
 
+/**
+ * Text editing utilities for the Portfolio application.
+ * 
+ * This file contains extension functions for text manipulation,
+ * particularly useful for cryptographic operations that require normalized text.
+ */
+
+/**
+ * Removes diacritical marks (accents) from characters.
+ * 
+ * This function is useful for normalizing text before cryptographic operations,
+ * as many classical ciphers work only with basic Latin alphabet characters.
+ * 
+ * Examples:
+ * - "café" → "cafe"
+ * - "naïve" → "naive"
+ * - "Zürich" → "Zurich"
+ * 
+ * @return String with diacritics removed
+ */
 fun CharSequence.removeDiacritics(): String {
     val result = StringBuilder(this.length)
     for (char in this) {

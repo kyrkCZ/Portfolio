@@ -1,5 +1,15 @@
 package jakub.portfolio
 
+/**
+ * ADFGVX Cipher implementation - a field cipher used by the German Army during World War I.
+ * 
+ * The ADFGVX cipher combines a modified Polybius square with a single columnar transposition.
+ * The letters A, D, F, G, V, and X were chosen specifically because in Morse code they are very 
+ * different from each other, reducing transmission errors.
+ * 
+ * @property keyword The secret key used for columnar transposition
+ * @property useExtendedAlphabet If true, uses 6x6 grid with numbers; if false, uses 5x5 grid (standard)
+ */
 class ADFGVXCipher(private val keyword: String, private val useExtendedAlphabet: Boolean = false) {
 
     private val standardAlphabet = "ABCDEFGHIKLMNOPQRSTUVWXYZ"

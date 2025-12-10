@@ -418,19 +418,23 @@ fun processText(plainText: String): String {
 
 // Function to deprocess text after deciphering
 fun deprocessText(cipherText: String): String {
-    var deprocessedText = cipherText
-    if(deprocessedText.contains("JEDNA")) deprocessedText = deprocessedText.replace("JEDNA", "1")
-    if(deprocessedText.contains("DVA")) deprocessedText = deprocessedText.replace("DVA", "2")
-    if(deprocessedText.contains("TRI")) deprocessedText = deprocessedText.replace("TRI", "3")
-    if(deprocessedText.contains("CTYRI")) deprocessedText = deprocessedText.replace("CTYRI", "4")
-    if(deprocessedText.contains("PET")) deprocessedText = deprocessedText.replace("PET", "5")
-    if(deprocessedText.contains("SEST")) deprocessedText = deprocessedText.replace("SEST", "6")
-    if(deprocessedText.contains("SEDM")) deprocessedText = deprocessedText.replace("SEDM", "7")
-    if(deprocessedText.contains("OSM")) deprocessedText = deprocessedText.replace("OSM", "8")
-    if(deprocessedText.contains("DEVET")) deprocessedText = deprocessedText.replace("DEVET", "9")
-    if(deprocessedText.contains("NULA")) deprocessedText = deprocessedText.replace("NULA", "0")
-    if(deprocessedText.contains("XMEZERAX")) deprocessedText = deprocessedText.replace("XMEZERAX", " ")
-    return deprocessedText
+    val replacements = mapOf(
+        "JEDNA" to "1",
+        "DVA" to "2",
+        "TRI" to "3",
+        "CTYRI" to "4",
+        "PET" to "5",
+        "SEST" to "6",
+        "SEDM" to "7",
+        "OSM" to "8",
+        "DEVET" to "9",
+        "NULA" to "0",
+        "XMEZERAX" to " "
+    )
+    
+    return replacements.entries.fold(cipherText) { text, (key, value) ->
+        text.replace(key, value)
+    }
 }
 
 // Function to get padding character based on the last character
@@ -492,26 +496,11 @@ fun playfairDecipher(cipherText: String, keyword: String, czechAlphabet: Boolean
     return decipheredText.toString()
 }
 
-fun isPlayfairKeyValid(key: String): Boolean {
-    if (key.length > 10 && hasUniqueCharacters(key)) return true
-    return false
-}
+fun isPlayfairKeyValid(key: String): Boolean = 
+    key.length > 10 && hasUniqueCharacters(key)
 
-fun hasUniqueCharacters(input: String): Boolean {
-    // Create a set to store characters that have been seen
-    val seenChars = mutableSetOf<Char>()
-
-    for (char in input) {
-        if (seenChars.contains(char)) {
-            // Character is repeated; the string does not have unique characters
-            return false
-        }
-        seenChars.add(char)
-    }
-
-    // All characters are unique
-    return true
-}
+fun hasUniqueCharacters(input: String): Boolean = 
+    input.length == input.toSet().size
 
 
 // Composable function to display the Playfair matrix
